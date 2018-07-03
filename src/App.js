@@ -10,7 +10,7 @@ class App extends Component {
     super(props);
     this.state = {
       champData: {},
-      randomChamp: " "
+      randomChamp: "..."
     };
 
     axios
@@ -19,18 +19,22 @@ class App extends Component {
       )
       .then(result => {
         this.setState({ champData: result.data.data });
-      });
+      }).then(() => {
+        let counter = 0
+        for (let champ in this.state.champData) {
+          if (Math.random() < 1 / ++counter){
+            this.setState({randomChamp: champ})
+          }
+        }
+      })
   }
-  randChamp = () => {
-    let keys = Object.keys(this.state.champData);
-    console.log(keys);
-  };
+
 
   render() {
     return (
       <Fragment>
         <Header />
-        <Quiz {...this.state.champData.Ezreal} />
+        <Quiz randomChamp={this.state.randomChamp} />
         <Footer />
       </Fragment>
     );
