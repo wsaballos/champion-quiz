@@ -2,7 +2,7 @@ import React from "react";
 function Quiz(props) {
   return (
     <div className="container">
-      <h1>{props.name}</h1>
+      <img src={`http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/${props.randomChamp}.png`} />
     </div>
   );
 }
