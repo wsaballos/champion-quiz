@@ -1,19 +1,38 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component, Fragment } from "react";
+import "./App.css";
+import Header from "./components/Header";
+import Quiz from "./components/Quiz";
+import Footer from "./components/Footer";
+import axios from "axios";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      champData: {},
+      randomChamp: " "
+    };
+
+    axios
+      .get(
+        "http://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion.json"
+      )
+      .then(result => {
+        this.setState({ champData: result.data.data });
+      });
+  }
+  randChamp = () => {
+    let keys = Object.keys(this.state.champData);
+    console.log(keys);
+  };
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <Fragment>
+        <Header />
+        <Quiz {...this.state.champData.Ezreal} />
+        <Footer />
+      </Fragment>
     );
   }
 }
