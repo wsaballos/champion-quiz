@@ -14,9 +14,9 @@ class App extends Component {
       champs: [],
     };
 
-    const some = (data, rand, counter) => {
+    const champsFactory = (data, counter) => {
       Object.keys(data).forEach((champ) => {
-        if (Math.random() < 0.5 / counter && rand.length < 5) {
+        if (Math.random() < 0.5 / counter && this.state.randomChamps.length < 5) {
           this.setState(prevState => ({
             randomChamps: prevState.randomChamps.concat(
               data[champ],
@@ -39,7 +39,7 @@ class App extends Component {
         // random select champs from champData and place them into the randomChamps arr
         const counter = Math.random();
         while (this.state.randomChamps.length < 5) {
-          some(this.state.champData, this.state.randomChamps, counter);
+          champsFactory(this.state.champData, counter);
           //   // console.log(this.state.randomChamps);
         }
       })
