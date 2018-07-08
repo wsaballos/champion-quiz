@@ -13,6 +13,21 @@ class App extends Component {
       randomChamps: [],
       champs: [],
     };
+
+    const some = (data, rand, counter) => {
+      Object.keys(data).forEach((champ) => {
+        if (Math.random() < 0.5 / counter && rand.length < 5) {
+          this.setState(prevState => ({
+            randomChamps: prevState.randomChamps.concat(
+              data[champ],
+            ),
+          }));
+          counter = Math.random();
+        }
+        ++counter;
+      });
+    };
+
     axios
       .get(
         'http://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion.json',
@@ -22,23 +37,10 @@ class App extends Component {
       })
       .then(() => {
         // random select champs from champData and place them into the randomChamps arr
-        let counter = Math.random();
+        const counter = Math.random();
         while (this.state.randomChamps.length < 5) {
-          for (const champ in this.state.champData) {
-            ++counter;
-            if (
-              Math.random() < 0.5 / counter
-              && this.state.randomChamps.length < 5
-            ) {
-              this.setState(prevState => ({
-                randomChamps: prevState.randomChamps.concat(
-                  this.state.champData[champ],
-                ),
-              }));
-              counter = Math.random();
-            }
-          }
-          // console.log(this.state.randomChamps);
+          some(this.state.champData, this.state.randomChamps, counter);
+          //   // console.log(this.state.randomChamps);
         }
       })
       .then(() => {
@@ -60,12 +62,13 @@ class App extends Component {
   }
 
   render() {
+    const { champData, champs } = this.state;
     return (
       <Fragment>
         <Header />
         <Quiz
-          champs={this.state.champs}
-          champData={this.state.champData}
+          champs={champs}
+          champData={champData}
         />
         <Footer />
       </Fragment>
