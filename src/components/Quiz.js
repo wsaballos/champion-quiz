@@ -15,17 +15,17 @@ function Quiz(props) {
             alt={selectedChamp.name}
           />
           <ul>
-            {selectedChamp.spells.map((spell) => (
-                <li key={spell.id}>
-                  <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/${
-                      spell.image.full
-                      }`}
-                    alt={spell.name}
-                  />
-                  {spell.name}
-                </li>
-              ))}
+            {selectedChamp.spells.map(spell => (
+              <li key={spell.id}>
+                <img
+                  src={`http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/${
+                    spell.image.full
+                  }`}
+                  alt={spell.name}
+                />
+                {spell.name}
+              </li>
+            ))}
           </ul>
         </div>
       ) : (
