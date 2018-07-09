@@ -15,50 +15,36 @@ class App extends Component {
     };
 
     const champsFactory = (data, counter) => {
+      let updatedCounter = counter;
       Object.keys(data).forEach((champ) => {
-        if (Math.random() < 0.5 / counter && this.state.randomChamps.length < 5) {
+        const { randomChamps } = this.state;
+        if (Math.random() < 0.5 / updatedCounter && randomChamps.length < 5) {
           this.setState(prevState => ({
             randomChamps: prevState.randomChamps.concat(
               data[champ],
             ),
           }));
-          counter = Math.random();
+          updatedCounter = Math.random();
         }
-        ++counter;
+        updatedCounter += updatedCounter;
       });
     };
 
-    axios
-      .get(
-        'http://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion.json',
-      )
-      .then((result) => {
-        this.setState({ champData: result.data.data });
-      })
-      .then(() => {
-        // random select champs from champData and place them into the randomChamps arr
-        const counter = Math.random();
-        while (this.state.randomChamps.length < 5) {
-          champsFactory(this.state.champData, counter);
-          //   // console.log(this.state.randomChamps);
-        }
-      })
-      .then(() => {
-        // hit all 5 of the random champs endpoints
-        for (const iterator of this.state.randomChamps) {
-          axios
-            .get(
-              `http://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion/${
-                iterator.id
-              }.json`,
-            )
-            .then((res) => {
-              this.setState(prevState => ({
-                champs: prevState.champs.concat(res.data.data[iterator.id]),
-              }));
-            });
-        }
-      });
+    const request = async () => {
+      const championResponse = await axios.get('http://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion.json');
+      this.setState({ champData: championResponse.data.data });
+      const counter = Math.random();
+      while (this.state.randomChamps.length < 5) {
+        champsFactory(this.state.champData, counter);
+      }
+      for (const iterator of this.state.randomChamps) {
+        const specificChampionResponse = await axios.get(`http://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion/${iterator.id}.json`);
+        this.setState(prevState => ({
+          champs: prevState.champs.concat(specificChampionResponse.data.data[iterator.id]),
+        }));
+      }
+    };
+    request();
   }
 
   render() {
