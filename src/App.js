@@ -15,18 +15,16 @@ class App extends Component {
     };
 
     const champsFactory = (data, counter) => {
-      let updatedCounter = counter;
       Object.keys(data).forEach((champ) => {
         const { randomChamps } = this.state;
-        if (Math.random() < 0.5 / updatedCounter && randomChamps.length < 5) {
+        if ((0.5 - Math.random()) - Math.random() > counter && randomChamps.length < 4) {
           this.setState(prevState => ({
             randomChamps: prevState.randomChamps.concat(
               data[champ],
             ),
           }));
-          updatedCounter = Math.random();
         }
-        updatedCounter += updatedCounter;
+        counter = Math.random();
       });
     };
 
@@ -34,7 +32,7 @@ class App extends Component {
       const championResponse = await axios.get('http://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion.json');
       this.setState({ champData: championResponse.data.data });
       const counter = Math.random();
-      while (this.state.randomChamps.length < 5) {
+      while (this.state.randomChamps.length < 4) {
         champsFactory(this.state.champData, counter);
       }
       for (const iterator of this.state.randomChamps) {
