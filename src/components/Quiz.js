@@ -14,10 +14,10 @@ function Quiz({ champs }) {
         key={champs[randomPosition[i]].key}
         spell={spell}
         randChamps={champs[randomPosition[i]].spells[randomSpells[i]]}
+        checkSpell={champs[randomPosition[i]].spells[i].name.includes(spell.name)}
       />
     ));
   }
-
   return (
     <div className="container">
       {champs.length === 4 ? (
