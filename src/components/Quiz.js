@@ -1,45 +1,45 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import QuizListItems from './quiz_list_items';
 
-function Quiz(props) {
-  const selectedChamp = props.champs[props.champs.length - 1];
-  const randChamps = props.champs;
-  const randomSpells = [0, 1, 2, 3].sort(() => 0.5 - Math.random());
+function Quiz({ champs }) {
+  const selectedChamp = champs[champs.length - 1];
+  const randomPosition = [0, 1, 2, 3].sort(() => 0.5 - Math.random());
+  const randomSpells = [3, 2, 1, 0].sort(() => 0.5 - Math.random());
+  let listItems = [];
+  if (champs.length === 4) {
+    listItems = selectedChamp.spells.map((spell, i) => (
+      <QuizListItems
+        key={champs[randomPosition[i]].key}
+        spell={spell}
+        randChamps={champs[randomPosition[i]].spells[randomSpells[i]]}
+      />
+    ));
+  }
 
   return (
     <div className="container">
-      {props.champs.length === 4 ? (
+      {champs.length === 4 ? (
         <div>
           <img
             src={`http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/${
               selectedChamp.image.full
-              }`}
+            }`}
             alt={selectedChamp.name}
           />
           <p>
             {selectedChamp.name}
           </p>
           <ul>
-            {selectedChamp.spells
-              .map((spell, i) => (
-                <li key={spell.id}>
-                  <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/${
-                      randChamps[randomSpells[i]].spells[randomSpells[i]].image.full
-                      }`}
-                    alt={spell.name}
-                  />
-                  {randChamps[randomSpells[i]].spells[randomSpells[i]].name}
-                </li>
-              ))}
+            {listItems}
           </ul>
         </div>
       ) : (
-          <div>
+        <div>
             <FontAwesomeIcon icon={faSpinner} size="6x" spin />
           </div>
-        )}
+      )}
     </div>
   );
 }
