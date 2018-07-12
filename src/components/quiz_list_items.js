@@ -9,7 +9,7 @@ const QuizListItems = ({ randChamps, generateRandomChamps, checkSpell }) => {
     <li style={{ listStyle: 'none' }}>
       <div onClick={() => gameState()} onKeyDown={(e) => { if (e.keyCode === 13) { gameState(); } }} role="presentation" tabIndex="-1">
         <img
-          className="d-none"
+          className=""
           src={`http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/${
             randChamps.image.full
           }`}
