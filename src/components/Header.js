@@ -6,13 +6,13 @@ function Header() {
       <div className="container">
         <div className="row">
           <h1>
-Champion Quiz
-</h1>
+            {'Champion Quiz'}
+          </h1>
         </div>
         <div className="row">
           <p>
-Select a spell associated to the Champion shown
-</p>
+            {'Select a spell associated to the Champion shown'}
+          </p>
         </div>
       </div>
     </div>
