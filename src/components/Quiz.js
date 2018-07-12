@@ -23,20 +23,22 @@ function Quiz({ champs, generateRandomChamps }) {
     <div className="container">
       {champs.length === 4 ? (
         <div className="row">
-          <figure>
-            <img
-              className="figure-img img-fluid rounded"
-              src={`http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/${
-                selectedChamp.image.full
-              }`}
-              alt={selectedChamp.name}
-            />
-            <figcaption className="figure-caption text-right">
-              {selectedChamp.name}
-            </figcaption>
-          </figure>
-          <span className="col-7">
-            <ul>
+          <span className="col-12 col-sm-3">
+            <figure style={{ width: 120 }}>
+              <img
+                className="figure-img img-fluid rounded"
+                src={`http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/${
+                  selectedChamp.image.full
+                }`}
+                alt={selectedChamp.name}
+              />
+              <figcaption className="figure-caption text-right">
+                {selectedChamp.name}
+              </figcaption>
+            </figure>
+          </span>
+          <span className="col-12 col-sm-9">
+            <ul className="list-group">
               {listItems}
             </ul>
           </span>
