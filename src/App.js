@@ -2,9 +2,10 @@ import React, { Component, Fragment } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import axios from 'axios';
-import Header from './components/Header';
-import Quiz from './components/Quiz';
-import Footer from './components/Footer';
+import Score from './components/score';
+import Header from './components/header';
+import Quiz from './components/quiz';
+import Footer from './components/footer';
 
 class App extends Component {
   constructor(props) {
@@ -71,6 +72,7 @@ class App extends Component {
     return (
       <Fragment>
         <Header />
+        <Score />
         <Quiz
           champs={champs}
           champData={champData}
