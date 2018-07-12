@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import QuizListItems from './quiz_list_items';
 
-function Quiz({ champs }) {
+function Quiz({ champs, generateRandomChamps }) {
   const selectedChamp = champs[champs.length - 1];
   const randomPosition = [0, 1, 2, 3].sort(() => 0.5 - Math.random());
   const randomSpells = [3, 2, 1, 0].sort(() => 0.5 - Math.random());
@@ -15,6 +15,7 @@ function Quiz({ champs }) {
         spell={spell}
         randChamps={champs[randomPosition[i]].spells[randomSpells[i]]}
         checkSpell={champs[randomPosition[i]].spells[i].name.includes(spell.name)}
+        generateRandomChamps={generateRandomChamps}
       />
     ));
   }
