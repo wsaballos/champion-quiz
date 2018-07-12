@@ -14,46 +14,67 @@ class App extends Component {
       randomChamps: [],
       champs: [],
     };
+    this.champsFactory = this.champsFactory.bind(this);
+    this.generateRandomChamps = this.generateRandomChamps.bind(this);
+    this.request = this.request.bind(this);
+    this.generateChampObj = this.generateChampObj.bind(this);
+    this.resetState = this.resetState.bind(this);
+    this.baseState = this.state;
+    this.request();
+  }
 
-    const champsFactory = (data, counter) => {
-      Object.keys(data).forEach((champ) => {
-        const { randomChamps } = this.state;
-        if ((0.5 - Math.random()) - Math.random() > counter && randomChamps.length < 4) {
-          this.setState(prevState => ({
-            randomChamps: prevState.randomChamps.concat(
-              data[champ],
-            ),
-          }));
-        }
-        counter = Math.random();
-      });
-    };
-
-    const request = async () => {
-      const championResponse = await axios.get('http://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion.json');
-      this.setState({ champData: championResponse.data.data });
-      const counter = Math.random();
-      while (this.state.randomChamps.length < 4) {
-        champsFactory(this.state.champData, counter);
-      }
-      for (const iterator of this.state.randomChamps) {
-        const specificChampionResponse = await axios.get(`http://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion/${iterator.id}.json`);
+  champsFactory(data, counter) {
+    Object.keys(data).forEach((champ) => {
+      const { randomChamps } = this.state;
+      if ((0.5 - Math.random()) - Math.random() > counter && randomChamps.length < 4) {
         this.setState(prevState => ({
-          champs: prevState.champs.concat(specificChampionResponse.data.data[iterator.id]),
+          randomChamps: prevState.randomChamps.concat(
+            data[champ],
+          ),
         }));
       }
-    };
-    request();
+      counter = Math.random();
+    });
+  }
+
+  resetState() {
+    this.setState(this.baseState);
+    this.request();
+  }
+
+  generateRandomChamps() {
+    const counter = Math.random();
+    while (this.state.randomChamps.length < 4) {
+      this.champsFactory(this.state.champData, counter);
+    }
+    this.generateChampObj();
+  }
+
+  async generateChampObj() {
+    for (const iterator of this.state.randomChamps) {
+      const specificChampionResponse = await axios.get(`http://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion/${iterator.id}.json`);
+      this.setState(prevState => ({
+        champs: prevState.champs.concat(specificChampionResponse.data.data[iterator.id]),
+      }));
+    }
+  }
+
+  async request() {
+    const championResponse = await axios.get('http://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion.json');
+    this.setState({ champData: championResponse.data.data });
+    this.generateRandomChamps();
   }
 
   render() {
     const { champData, champs } = this.state;
+
     return (
       <Fragment>
         <Header />
         <Quiz
           champs={champs}
           champData={champData}
+          generateRandomChamps={this.resetState}
         />
         <Footer />
       </Fragment>
