@@ -2,6 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import QuizListItems from './quiz_list_items';
+import Score from './score';
 
 function Quiz({ champs, generateRandomChamps }) {
   const selectedChamp = champs[champs.length - 1];
@@ -21,6 +22,7 @@ function Quiz({ champs, generateRandomChamps }) {
   }
   return (
     <div className="container">
+      <Score />
       {champs.length === 4 ? (
         <div className="row">
           <span className="col-12 col-sm-3">
@@ -45,10 +47,10 @@ function Quiz({ champs, generateRandomChamps }) {
         </div>
       ) : (
         <div className="row">
-            <div className="col-12" style={{ textAlign: 'center' }}>
-              <FontAwesomeIcon icon={faSpinner} size="10x" spin />
-            </div>
+          <div className="col-12" style={{ textAlign: 'center' }}>
+            <FontAwesomeIcon icon={faSpinner} size="10x" spin />
           </div>
+        </div>
       )}
     </div>
   );
