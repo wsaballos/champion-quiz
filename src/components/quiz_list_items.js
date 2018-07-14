@@ -18,7 +18,7 @@ class QuizListItems extends Component {
     });
     setTimeout(() => {
       generateRandomChamps();
-    }, 500);
+    }, 800);
   }
 
   render() {
@@ -27,7 +27,7 @@ class QuizListItems extends Component {
     return (
       <li
         className={`list-group-item list-hover ${result}`}
-        style={{ listStyle: 'none' }}
+        style={{ listStyle: 'none', height: 80 }}
       >
         <div
           onClick={() => this.gameState()}
@@ -42,7 +42,7 @@ class QuizListItems extends Component {
             }`}
             alt={randChamps.name}
           />
-          <span style={{ margin: 5 }}>
+          <span style={{ margin: 0 }}>
             {randChamps.name}
           </span>
         </div>
