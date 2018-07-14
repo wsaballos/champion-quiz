@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import axios from 'axios';
-import Score from './components/score';
 import Header from './components/header';
 import Quiz from './components/quiz';
 import Footer from './components/footer';
@@ -72,7 +71,6 @@ class App extends Component {
     return (
       <Fragment>
         <Header />
-        <Score />
         <Quiz
           champs={champs}
           champData={champData}
