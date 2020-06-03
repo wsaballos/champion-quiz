@@ -2,9 +2,9 @@ import React, { Component, Fragment } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import axios from 'axios';
-import Header from './components/header';
-import Quiz from './components/quiz';
-import Footer from './components/footer';
+import Header from './components/Header';
+import Quiz from './components/Quiz';
+import Footer from './components/Footer';
 
 class App extends Component {
   constructor(props) {
