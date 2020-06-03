@@ -29,7 +29,7 @@ function Quiz({ champs, generateRandomChamps }) {
             <figure style={{ width: 120 }}>
               <img
                 className="figure-img img-fluid rounded"
-                src={`http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/${selectedChamp.image.full}`}
+                src={`https://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/${selectedChamp.image.full}`}
                 alt={selectedChamp.name}
               />
               <figcaption className="figure-caption text-right">

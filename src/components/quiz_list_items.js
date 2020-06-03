@@ -37,7 +37,7 @@ class QuizListItems extends Component {
         >
           <img
             className={visibility}
-            src={`http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/${
+            src={`https://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/${
               randChamps.image.full
             }`}
             alt={randChamps.name}

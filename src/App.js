@@ -52,7 +52,7 @@ class App extends Component {
 
   async generateChampObj() {
     for (const iterator of this.state.randomChamps) {
-      const specificChampionResponse = await axios.get(`http://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion/${iterator.id}.json`);
+      const specificChampionResponse = await axios.get(`https://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion/${iterator.id}.json`);
       this.setState(prevState => ({
         champs: prevState.champs.concat(specificChampionResponse.data.data[iterator.id]),
       }));
@@ -60,7 +60,7 @@ class App extends Component {
   }
 
   async request() {
-    const championResponse = await axios.get('http://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion.json');
+    const championResponse = await axios.get('https://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion.json');
     this.setState({ champData: championResponse.data.data });
     this.generateRandomChamps();
   }
